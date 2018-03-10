@@ -35,6 +35,16 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         progressBar = findViewById(R.id.progressBarLogin);
 
+        /*if(mAuth.getCurrentUser() != null)
+        {
+            Intent intent = new Intent(MainActivity.this, WelcomeScreen.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+
+
+        }*/
+
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +78,10 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    startActivity(new Intent(MainActivity.this,WelcomeScreen.class));
+                    Intent intent = new Intent(MainActivity.this, WelcomeScreen.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
                 else
                 {

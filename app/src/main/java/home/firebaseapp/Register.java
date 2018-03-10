@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class Register extends AppCompatActivity {
 
-    EditText etEmail,etUsername,etPassword,etConfirmPassword;
+    EditText etEmail,etPassword,etConfirmPassword,etFirstName,etLastName;
     Button registerButton;
     private FirebaseAuth mAuth;
     ProgressBar progressBar;
@@ -29,8 +29,9 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
+        etFirstName = findViewById(R.id.firstName);
+        etLastName = findViewById(R.id.lastName);
         etEmail = findViewById(R.id.emailEditText);
-        etUsername = findViewById(R.id.usernameEditText);
         etPassword = findViewById(R.id.passwordEditText);
         etConfirmPassword = findViewById(R.id.confirmPasswordEditText);
         registerButton = findViewById(R.id.registerButton2);
@@ -47,12 +48,16 @@ public class Register extends AppCompatActivity {
 
     }
 
+
     private void registerUser()
     {
 
         String email = etEmail.getText().toString();
-        String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString();
+        String firstName = etFirstName.getText().toString();
+        String lastName = etLastName.getText().toString();
+
+        User user = new User(firstName,lastName);
 
         if (email.isEmpty())
         {
@@ -68,16 +73,23 @@ public class Register extends AppCompatActivity {
             return;
         }
 
-        if(username.isEmpty())
+        if(firstName.isEmpty())
         {
-            Toast.makeText(Register.this,"Username is empty",Toast.LENGTH_LONG).show();
-            etUsername.requestFocus();
+            Toast.makeText(Register.this,"First name is empty",Toast.LENGTH_LONG).show();
+            etFirstName.requestFocus();
+            return;
+        }
+
+        if(lastName.isEmpty())
+        {
+            Toast.makeText(Register.this,"Last name is empty",Toast.LENGTH_LONG).show();
+            etLastName.requestFocus();
             return;
         }
 
         if(password.length()<6)
         {
-            Toast.makeText(Register.this,"Passowrd needs to be 6 or more characters",Toast.LENGTH_LONG).show();
+            Toast.makeText(Register.this,"Password needs to be 6 or more characters",Toast.LENGTH_LONG).show();
             etPassword.requestFocus();
             return;
         }
