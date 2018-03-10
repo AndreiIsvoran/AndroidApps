@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FirebaseApp</string>
+    <string name="generate_button">Generate</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="sign_up">Sign UP</string>
+    <string name="sign_in">Sign IN</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="login">Login</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+</resources>
