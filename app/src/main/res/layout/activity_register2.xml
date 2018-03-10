@@ -58,7 +58,7 @@
         android:layout_width="214dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="49dp"
-        android:text="Register"
+        android:text="@string/register"
         android:theme="@style/AppTheme.Button"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
