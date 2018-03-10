@@ -11,18 +11,23 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
 
     EditText etEmail,etPassword,etConfirmPassword,etFirstName,etLastName;
     Button registerButton;
     private FirebaseAuth mAuth;
-    ProgressBar progressBar;
+    Firebase fireBase;
+    private DatabaseReference mDatabase;
+
 
 
     @Override
@@ -35,7 +40,9 @@ public class Register extends AppCompatActivity {
         etPassword = findViewById(R.id.passwordEditText);
         etConfirmPassword = findViewById(R.id.confirmPasswordEditText);
         registerButton = findViewById(R.id.registerButton2);
-        progressBar = findViewById(R.id.progressBarRegister);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        fireBase = new Firebase("https://fir-tutorial-28089.firebaseio.com/Users");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -57,7 +64,7 @@ public class Register extends AppCompatActivity {
         String firstName = etFirstName.getText().toString();
         String lastName = etLastName.getText().toString();
 
-        User user = new User(firstName,lastName);
+        writeNewUser(firstName,lastName);
 
         if (email.isEmpty())
         {
@@ -94,7 +101,6 @@ public class Register extends AppCompatActivity {
             return;
         }
 
-        progressBar.setVisibility(View.VISIBLE);
 
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -119,7 +125,9 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
-
-
+    }
+    private void writeNewUser(String name, String email) {
+        User user = new User(name,email);
+        fireBase.push().setValue(user);
     }
 }
