@@ -20,9 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
-        <activity android:name=".WelcomeScreen" />
         <activity
-            android:name=".Main2Activity"
+            android:name=".WelcomeScreen"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme"></activity>
     </application>
