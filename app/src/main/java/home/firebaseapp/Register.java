@@ -63,8 +63,7 @@ public class Register extends AppCompatActivity {
         String password = etPassword.getText().toString();
         String firstName = etFirstName.getText().toString();
         String lastName = etLastName.getText().toString();
-
-        writeNewUser(firstName,lastName);
+        String confirmPassword = etConfirmPassword.getText().toString();
 
         if (email.isEmpty())
         {
@@ -100,6 +99,15 @@ public class Register extends AppCompatActivity {
             etPassword.requestFocus();
             return;
         }
+
+        if(password.equals(confirmPassword))
+        {
+            Toast.makeText(Register.this,"Passwords don't match",Toast.LENGTH_LONG).show();
+            etConfirmPassword.requestFocus();
+            return;
+        }
+
+        writeNewUser(firstName,lastName);
 
 
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
