@@ -42,7 +42,7 @@ public class Register extends AppCompatActivity {
         registerButton = findViewById(R.id.registerButton2);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        fireBase = new Firebase("https://fir-tutorial-28089.firebaseio.com/Users");
+        fireBase = new Firebase("https://fir-tutorial-28089.firebaseio.com/");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -126,8 +126,8 @@ public class Register extends AppCompatActivity {
             }
         });
     }
-    private void writeNewUser(String name, String email) {
-        User user = new User(name,email);
+    private void writeNewUser(String firstName, String lastName) {
+        User user = new User(firstName,lastName);
         fireBase.push().setValue(user);
     }
 }
