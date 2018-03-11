@@ -23,7 +23,8 @@
         <activity
             android:name=".WelcomeScreen"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Chat"></activity>
     </application>
 
 </manifest>

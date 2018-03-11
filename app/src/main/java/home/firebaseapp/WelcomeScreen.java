@@ -107,6 +107,7 @@ public class WelcomeScreen extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.settings) {
             startActivity(new Intent(WelcomeScreen.this,MainActivity.class));
+            return true;
         }
 
         if (id == R.id.leftMenu) {
@@ -125,6 +126,9 @@ public class WelcomeScreen extends AppCompatActivity
 
         if (id == R.id.logout) {
             startActivity(new Intent(WelcomeScreen.this,MainActivity.class));
+        }
+        if (id == R.id.chat) {
+            startActivity(new Intent(WelcomeScreen.this,Chat.class));
         }
         if (id == R.id.leftMenu) {
             return true;
