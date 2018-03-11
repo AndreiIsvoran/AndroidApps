@@ -100,7 +100,7 @@ public class Register extends AppCompatActivity {
             return;
         }
 
-        if(password.equals(confirmPassword))
+        if(!password.equals(confirmPassword))
         {
             Toast.makeText(Register.this,"Passwords don't match",Toast.LENGTH_LONG).show();
             etConfirmPassword.requestFocus();

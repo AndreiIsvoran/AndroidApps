@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,8 +27,9 @@ public class WelcomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DatabaseReference mDatabase;
-    EditText etFirstName, etLastName;
+    TextView etFirstName, etLastName;
     String userID, firstName, lastName;
+    Toolbar mActionBarToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +48,15 @@ public class WelcomeScreen extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        etFirstName = findViewById(R.id.firstNameToBechanged);
+        etFirstName = findViewById(R.id.textView4);
 
 
         Firebase.setAndroidContext(this);
         userID = FirebaseAuth.getInstance().getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference().child(userID);
+        mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setTitle("Welcome");
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -100,10 +105,15 @@ public class WelcomeScreen extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.settings) {
+            startActivity(new Intent(WelcomeScreen.this,MainActivity.class));
         }
 
+        if (id == R.id.leftMenu) {
+            return true;
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.openDrawer(GravityCompat.START);
         return super.onOptionsItemSelected(item);
     }
 
@@ -115,6 +125,9 @@ public class WelcomeScreen extends AppCompatActivity
 
         if (id == R.id.logout) {
             startActivity(new Intent(WelcomeScreen.this,MainActivity.class));
+        }
+        if (id == R.id.leftMenu) {
+            return true;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
