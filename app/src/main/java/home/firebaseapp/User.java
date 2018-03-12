@@ -6,6 +6,14 @@ package home.firebaseapp;
 
 public class User {
 
+    public String getFirstName() {
+        return FirstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
     public String FirstName;
     public String LastName;
 
@@ -17,5 +25,6 @@ public class User {
         this.FirstName = FirstName;
         this.LastName = LastName;
     }
+
 
 }

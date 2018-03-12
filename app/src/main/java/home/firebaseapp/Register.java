@@ -26,8 +26,6 @@ public class Register extends AppCompatActivity {
     Button registerButton;
     private FirebaseAuth mAuth;
     Firebase fireBase;
-    private DatabaseReference mDatabase;
-
 
 
     @Override
@@ -40,7 +38,7 @@ public class Register extends AppCompatActivity {
         etPassword = findViewById(R.id.passwordEditText);
         etConfirmPassword = findViewById(R.id.confirmPasswordEditText);
         registerButton = findViewById(R.id.registerButton2);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         fireBase = new Firebase("https://fir-tutorial-28089.firebaseio.com/");
 
@@ -102,7 +100,7 @@ public class Register extends AppCompatActivity {
 
         if(!password.equals(confirmPassword))
         {
-            Toast.makeText(Register.this,"Passwords does not match",Toast.LENGTH_LONG).show();
+            Toast.makeText(Register.this,"Passwords don't match",Toast.LENGTH_LONG).show();
             etConfirmPassword.requestFocus();
             return;
         }

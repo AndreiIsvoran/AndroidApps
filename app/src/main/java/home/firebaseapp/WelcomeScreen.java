@@ -1,35 +1,46 @@
 package home.firebaseapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.storage.StorageManager;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class WelcomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DatabaseReference mDatabase;
-    TextView etFirstName, etLastName;
-    String userID, firstName, lastName;
-    Toolbar mActionBarToolbar;
+    TextView userDisplayName;
+    String userID;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,34 +59,17 @@ public class WelcomeScreen extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        etFirstName = findViewById(R.id.textView4);
+        userDisplayName = findViewById(R.id.userDisplayName);
 
 
         Firebase.setAndroidContext(this);
         userID = FirebaseAuth.getInstance().getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference().child(userID);
-        mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mActionBarToolbar);
+
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Welcome");
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                {
-                    Map<String , String> map = dataSnapshot.getValue(Map.class);
-
-                    firstName = map.get("FirstName");
-                    etFirstName.setText(firstName);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        loadUserInformation();
 }
 
 
@@ -138,4 +132,16 @@ public class WelcomeScreen extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void loadUserInformation()
+    {
+        final FirebaseUser user = mAuth.getCurrentUser();
+
+        if(user.getDisplayName()!=null)
+        {
+            userDisplayName.setText(user.getDisplayName());
+        }
+
+    }
+
 }

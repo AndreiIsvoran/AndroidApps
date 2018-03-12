@@ -21,4 +21,7 @@
     <string name="last_name">Last Name</string>
     <string name="register">Register</string>
     <string name="first_name">First Name</string>
+    <string name="chat">CHAT</string>
+    <string name="enter_username">Enter username</string>
+    <string name="save">Save</string>
 </resources>

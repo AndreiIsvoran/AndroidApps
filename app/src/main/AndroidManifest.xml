@@ -3,6 +3,7 @@
     package="home.firebaseapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".FirebaseApp"
@@ -24,7 +25,8 @@
             android:name=".WelcomeScreen"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Chat"></activity>
+        <activity android:name=".Chat" />
+        <activity android:name=".ChooseUsername"></activity>
     </application>
 
 </manifest>
