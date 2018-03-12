@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -78,10 +79,18 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    Intent intent = new Intent(MainActivity.this, WelcomeScreen.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    FirebaseUser user = mAuth.getCurrentUser();
+
+                    if(user.getDisplayName()!=null){
+                        Intent intent = new Intent(MainActivity.this, WelcomeScreen.class);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(MainActivity.this, ChooseUsername.class);
+                        startActivity(intent);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    }
+
                 }
                 else
                 {

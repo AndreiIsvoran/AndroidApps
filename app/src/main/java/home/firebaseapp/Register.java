@@ -113,7 +113,7 @@ public class Register extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    Toast.makeText(Register.this, "User register", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "User registered", Toast.LENGTH_SHORT).show();
                     finish();
                     startActivity(new Intent(Register.this,MainActivity.class));
                 }

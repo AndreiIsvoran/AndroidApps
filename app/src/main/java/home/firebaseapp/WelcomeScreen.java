@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,12 +36,13 @@ import java.io.IOException;
 import java.util.Map;
 
 public class WelcomeScreen extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private DatabaseReference mDatabase;
     TextView userDisplayName;
     String userID;
     FirebaseAuth mAuth;
+    private Button btnClickMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +67,16 @@ public class WelcomeScreen extends AppCompatActivity
         Firebase.setAndroidContext(this);
         userID = FirebaseAuth.getInstance().getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference().child(userID);
-
+        mAuth = FirebaseAuth.getInstance();
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Welcome");
 
-        loadUserInformation();
+       loadUserInformation();
+
+        btnClickMe = (Button) findViewById(R.id.loginButton);
+
+        btnClickMe.setOnClickListener( WelcomeScreen.this);
+
 }
 
 
@@ -83,7 +90,10 @@ public class WelcomeScreen extends AppCompatActivity
             super.onBackPressed();
         }
     }
+    public void onClick(View v) {
 
+        startActivity(new Intent(WelcomeScreen.this,Chat.class));
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -107,6 +117,9 @@ public class WelcomeScreen extends AppCompatActivity
         if (id == R.id.leftMenu) {
             return true;
         }
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.openDrawer(GravityCompat.START);
         return super.onOptionsItemSelected(item);
@@ -135,7 +148,7 @@ public class WelcomeScreen extends AppCompatActivity
 
     private void loadUserInformation()
     {
-        final FirebaseUser user = mAuth.getCurrentUser();
+         FirebaseUser user = mAuth.getCurrentUser();
 
         if(user.getDisplayName()!=null)
         {

@@ -46,6 +46,11 @@ public class ChooseUsername extends AppCompatActivity {
                         }
                     }
                 });
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(ChooseUsername.this, WelcomeScreen.class);
                 startActivity(intent);
             }
